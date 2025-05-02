@@ -13,7 +13,7 @@ export default class extends AbstractView {
 		let text = textList[Math.floor(Math.random() * textList.length)];
 		return /* HTML */ `
 		<style>
-		body { height: 100vh; background-image: url(/static/js/imgs/ponge.gif); background-repeat: no-repeat;
+		body { height: 100vh; background-image: url(/static/js/imgs/pong.gif); background-repeat: no-repeat;
 		background-attachment: fixed;
 		background-position: center;
 		background-size: 100vw 100vh; overflow-y: hidden; }

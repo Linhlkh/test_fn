@@ -11,7 +11,6 @@
   "homeTitle": "Trang chủ",
   "homeOnline": "Trực tuyến",
   "homePongOffline": "Pong ngoại tuyến",
-  "homeTicTacToeOffline": "Tic Tac Toe ngoại tuyến",
 
   "matchmakingTitle": "Tìm trận",
   "matchmakingStartSearch": "Bắt đầu tìm kiếm",
@@ -20,7 +19,6 @@
   "matchmakingPresentation": "Tìm trận đấu trực tuyến",
 
   "offlinePongPresentation": "Chơi Pong ngoại tuyến với bạn bè",
-  "offlineTicTacToePresentation": "Chơi Tic Tac Toe ngoại tuyến",
 
   "gamemodeChoice": "Chọn chế độ chơi",
 
@@ -69,7 +67,6 @@
   "registerAlreadyAccount": "Đã có tài khoản?",
   "registerLogin": "Đăng nhập",
 
-  "ticTacToeTitle": "Tic Tac Toe",
   "ruleTitle": "Luật chơi",
   "ruleBase": "Chiến thắng bằng cách đạt được ba dấu X hoặc O liên tiếp trong một bảng nhỏ.",
   "ruleMovement": "Nước đi của bạn xác định bảng mà đối thủ phải đánh vào.",

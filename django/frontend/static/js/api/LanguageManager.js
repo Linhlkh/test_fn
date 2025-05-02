@@ -2,7 +2,7 @@ import { reloadView } from '../index.js';
 
 export default class LanguageManager {
 	constructor() {
-		this.availableLanguages = ['vi', 'en'];
+		this.availableLanguages = ['vi', 'en', 'fr'];
 
 		this.dict = null;
 		this.currentLang = 'vi';
