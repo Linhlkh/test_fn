@@ -6,7 +6,7 @@ import Notice from "./Notice.js";
 import LanguageManager from './LanguageManager.js';
 
 
-//khle : done
+
 function getCookie(name)
 {
 	let cookie = {};
@@ -17,7 +17,6 @@ function getCookie(name)
 	return cookie[name];
 }
 
-//khle: tsao k catch cac loi?
 class Client
 {
 	constructor(url)
@@ -30,14 +29,12 @@ class Client
 		this.notice = new Notice(this);
 		this.lang = new LanguageManager();
 	}
-	//khle done
 	async isAuthenticated()
 	{
 		if (this._logged == undefined)
 			this._logged = await this._test_logged();
 		return this._logged;
 	}
-	//khle:body???
 	async _get(uri, data)
 	{
 		let response = await fetch(this._url + uri, {
@@ -104,7 +101,6 @@ class Client
 		});
         return response;
     }
-	//khle : dung de cap nhat file, co le la image
 	async _patch_file(uri, file)
     {
         let response = await fetch(this._url + uri, {
