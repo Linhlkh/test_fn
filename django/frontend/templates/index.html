@@ -7,6 +7,32 @@
 		<title>Pong Game</title>
 		<link rel='stylesheet' href='{% static 'css/bootstrap/bootstrap.min.css' %}'>
 		<link rel='stylesheet' href='{% static 'css/index.css' %}'>
+		<style>
+			.grid-background{
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				z-index: -1;
+				background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+				background-size: 400% 400%;
+				animation: gradient 5s ease infinite;
+				height: 100vh;
+			}
+	
+			@keyframes gradient {
+				0% {
+					background-position: 0% 50%;
+				}
+				50% {
+					background-position: 100% 50%;
+				}
+				100% {
+					background-position: 0% 50%;
+				}
+			}
+		</style>
 	</head>
 	<body data-bs-theme='dark'>
 		<nav class='navbar navbar-expand-md bg-body-tertiary rounded border border-dark-subtle m-2'>
@@ -16,9 +42,9 @@
 				</button>
 				<div class='collapse navbar-collapse justify-content-between' id='navbarSupportedContent'>
 					<div class='navbar-nav'>
-						<a class='nav-link' href='/' data-i18n='navbarDashboard' data-link>Dashboard</a>
-						<a class='nav-link' href='/search' data-i18n='navbarSearch' data-link>Search</a>
+						<a class='nav-link' href='/' data-i18n='navbarDashboard' data-link hidden>Dashboard</a>
 						<a class='nav-link' href='/home' data-i18n='navbarHome' data-link>Home</a>
+						<a class='nav-link' href='/search' data-i18n='navbarSearch' data-link>Search</a>
 					</div>
 					<span class='navbar-brand'>Pong Game</span>
 					<div class='navbar-nav'>

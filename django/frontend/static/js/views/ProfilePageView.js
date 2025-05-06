@@ -94,9 +94,9 @@ export default class extends AbstractView {
 
 		if (games.length) {
 			let rate = win / (win + lose) * 100;
-			winrateDiv.innerText = `Winrate: ${rate.toFixed()}%`;
+			winrateDiv.innerText = `Win rate: ${rate.toFixed()}%`;
 		} else {
-			winrateDiv.innerText = `Winrate: 🤓`
+			winrateDiv.innerText = `Win rate:`
 		}
 	}
 
@@ -107,7 +107,7 @@ export default class extends AbstractView {
         games.forEach(game => {
 
             let a = document.createElement("a");
-            a.href = `/games/${game.game_type}/${game.id}`;
+            // a.href = `/games/${game.game_type}/${game.id}`;
             a.setAttribute("data-link", true);
 
             let game_item = document.createElement("div");
@@ -151,25 +151,25 @@ export default class extends AbstractView {
 			<a href=${this.profile.avatar} target='_blank'>
 			<img class='img-thumbnail' src=${this.profile.avatar} style='width:auto; max-height:20vh; min-height:10vh'>
 			</a>
-		  </div>
-		  <div>
+			</div>
+			<div>
 			<button class='btn btn-sm btn-success d-none' id='addFriendButton'>Add Friend</button>
 			<button class='btn btn-sm btn-danger d-none' id='removeFriendButton'>Remove Friend</button>
-			<button class='btn btn-sm btn-danger d-none' id='blockButton'>Block</button>
-			<button class='btn btn-sm btn-secondary d-none' id='unblockButton'>Unblock</button>
-		  </div>
-		  <h1>Games</h1>
-		  <div>
+			<button class='btn btn-sm btn-danger d-none' id='blockButton' hidden>Block</button>
+			<button class='btn btn-sm btn-secondary d-none' id='unblockButton' hidden>Unblock</button>
+			</div>
+			<h1>Games</h1>
+			<div>
 			<h1 id='winrate'></h1>
-		  </div>
-		  <div>
+			</div>
+			<div>
 			<link rel="stylesheet" href="/static/css/gameHistory.css">
 			<div id="game-list"></div>
-		  </div>
-		</div>
-		`;
-	}
-
+			</div>
+			</div>
+			`;
+		}
+		
 	async addFriend() {
 		const removeFriendButton = document.getElementById('removeFriendButton');
 

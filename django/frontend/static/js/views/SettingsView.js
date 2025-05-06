@@ -254,7 +254,7 @@ export default class extends AbstractAuthenticatedView
 
 	async getHtml()
 	{
-		const avatarUnchanged = client.me.avatar === '/static/avatars/default.avif';
+		const avatarUnchanged = client.me.avatar === '/static/avatars/user_avt.jpg';
 
 		return /* HTML */ `
 		<div class='container-fluid col-lg-8 d-flex rounded border border-2 bg-light-subtle py-3'>

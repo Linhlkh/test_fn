@@ -3,5 +3,5 @@
 db.sqlite3
 **/migrations/**
 /profiles/static/avatars/*
-!/profiles/static/avatars/default.avif
+!/profiles/static/avatars/user_avt.jpg
 *.mo

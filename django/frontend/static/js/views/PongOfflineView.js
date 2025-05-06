@@ -21,7 +21,7 @@ export class PongOfflineView extends AbstractView {
 		this.winner2 = undefined;
 
 		this.final_winner = undefined;
-		this.round = -1; 
+		this.round = -1; //define tournament mode
 
 		this.game_mode = 1; // 1 is 2D, 2 is 3D
 	}
@@ -41,6 +41,7 @@ export class PongOfflineView extends AbstractView {
 		`;
 	}
 
+	//add event click for button: start game, start tournament, stop game, reset game...
 	async postInit() {
 		this.app = document.getElementById("display");
 		document.getElementById('startGameButton').onclick = this.startGame.bind(this);
@@ -53,6 +54,9 @@ export class PongOfflineView extends AbstractView {
 		document.getElementById('gameMode').onclick = this.toggleGameMode.bind(this);
 	}
 
+	// if (this.game) {
+	// 	this.game.cleanup();
+	// }
 	async leavePage() {
 		this.game?.cleanup();
 	}
@@ -71,7 +75,7 @@ export class PongOfflineView extends AbstractView {
 		}
 		this.game.changeGameMode(this.game_mode);
 	}
-
+// add nickname for tournament
 	startTournament() {
 		let startTournament = document.getElementById("startTournament");
 		let player1 = document.createElement("input");
@@ -111,7 +115,7 @@ export class PongOfflineView extends AbstractView {
 			startTournament.onclick = this.startTournament.bind(this);
 		}
 	}
-
+//create button up/down for game
 	createButton()
 	{
 		this.up1 = document.createElement("button");
@@ -207,6 +211,7 @@ export class PongOfflineView extends AbstractView {
 		this.app.style.maxWidth = null;
 
 	}
+//support flexible number of player when change rounds= ....
 
 	async display_tree_tournament() {
 		let players = [this.player1, this.player2, this.player3, this.player4, this.winner1, this.winner2, this.final_winner];
@@ -220,7 +225,7 @@ export class PongOfflineView extends AbstractView {
 		let gap_x = width + 25;
 		let start_y = height / 2;
 
-		let rounds = Math.log2(4) + 1; 
+		let rounds = 3; 
 
 		let k = 0;
 		for (let i = 0; i < rounds; i++) { 
@@ -228,7 +233,7 @@ export class PongOfflineView extends AbstractView {
 			for(let j = 0; j < number_square; j++) {
 				const y = start_y + gap_y * j * Math.pow(2, i) + (gap_y / 2 * Math.pow(2, i));
 				svg.appendChild(await this.create_square(gap_x * i, y, width, height, "white", "black", players[k]));
-				svg.appendChild(await this.create_text(gap_x * i, y, width, height, "white", "black", players[k]));
+				svg.appendChild(await this.create_text(gap_x * i, y, width, height, "black", "black", players[k]));
 				k++;
 			}
 		}
@@ -265,6 +270,7 @@ export class PongOfflineView extends AbstractView {
 	}
 }
 
+//this-pong: PongOfflineView
 class Game {
 	constructor(game_mode, this_pong, player_name1, player_name2) {
 
@@ -315,13 +321,13 @@ class Game {
 
 		this.interval = setInterval(this.updateGame.bind(this), 10);
 
-		this.keys = [];
+		this.keys = []; //list of key in used
 		this.keyUpHandler = this.keyUpHandler.bind(this);
 		this.keyDownHandler = this.keyDownHandler.bind(this);
 		document.addEventListener('keydown', this.keyDownHandler);
 		document.addEventListener('keyup', this.keyUpHandler);
 
-		// stufs for 3D
+		//3d
 		this.shader_prog = null;
 		this.buffers = null;
 		this.cam_pos = [0, 150, -10];
@@ -370,8 +376,8 @@ class Game {
 		this.canvas.id = 'gameCanvas';
 		this.canvas.width = this.def.CANVASWIDTH;
 		this.canvas.height = this.def.CANVASHEIGHT;
-		this.canvas.style.border = '1px solid #d3d3d3';
-		this.canvas.style.backgroundColor = '#f1f1f1';
+		this.canvas.style.border = '1px solidrgb(6, 6, 6)';
+		this.canvas.style.backgroundColor = '#ff1600';
 		this.context = this.canvas.getContext('2d');
 		this.app.appendChild(this.canvas);
 	}
@@ -384,26 +390,37 @@ class Game {
 
 	finish(winner) {
 		this.cleanup();
+	
 		if (this.pong.round >= 0) {
 			if (this.pong.round == 0) {
 				this.pong.winner1 = winner;
-				this.pong.startGame(this.pong.player3, this.pong.player4)
-				this.pong.round++;
+				this.scoresDisplay.innerHTML = winner + ' wins round 1! Next match starts in 3s...';
+				
+				setTimeout(() => {
+					this.pong.startGame(this.pong.player3, this.pong.player4);
+					this.pong.round++;
+				}, 3000);
 			}
 			else if (this.pong.round == 1) {
 				this.pong.winner2 = winner;
-				this.pong.startGame(this.pong.winner1, this.pong.winner2)
-				this.pong.round++;
+				this.scoresDisplay.innerHTML = winner + ' wins round 2! Final match starts in 3s...';
+				
+				setTimeout(() => {
+					this.pong.startGame(this.pong.winner1, this.pong.winner2);
+					this.pong.round++;
+				}, 3000);
 			}
 			else {
 				this.pong.final_winner = winner;
 				this.pong.display_tree_tournament();
-				this.scoresDisplay.innerHTML = winner + ' wins!! GGS';
+				this.scoresDisplay.innerHTML = winner + ' wins the tournament!!';
 			}
 		}
-		else
-			this.scoresDisplay.innerHTML = winner + ' wins!! GGS';
+		else {
+			this.scoresDisplay.innerHTML = winner + ' wins!!';
+		}
 	}
+	
 
 	cleanup() {
 		clearInterval(this.interval);
@@ -439,7 +456,7 @@ class Game {
 			this.players[1].paddle.y > 0 + this.def.PADDLEMARGIN)
 				this.players[1].paddle.y -= this.def.PADDLESPEED;
 
-		//GOOAAAAL
+		//Missed ball
 		if (this.ball.x <= 0)
 			this.updateScore.bind(this)(this.players[0].score, ++this.players[1].score);
 		else if (this.ball.x >= this.def.CANVASWIDTH)
@@ -450,7 +467,7 @@ class Game {
 			this.calculateBallVelocity(this.players[0].paddle.getCenter().y, this.ball);
 		else if (this.detectCollision(this.players[1].paddle, this.ball))
 			this.calculateBallVelocity(this.players[1].paddle.getCenter().y, this.ball, -1);
-
+		
 		if (this.ball.y - this.ball.radius <= 0)
 			this.ball.vy *= -1;
 		else if (this.ball.y + this.ball.radius >= this.canvas.height)
@@ -550,7 +567,7 @@ class Game {
 		if (!this.keys.includes(key))
 			this.keys.push(key);
 	}
-
+//3d
 	setNormalAttribute()
 	{
 		const numComponents = 3;

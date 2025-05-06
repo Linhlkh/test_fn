@@ -22,15 +22,15 @@ class MyProfileViewSet(viewsets.ModelViewSet):
         profile: ProfileModel = self.get_object()
 
         if (avatar is not None):
-            if (profile.avatar.name != "./profiles/static/avatars/default.avif"):
+            if (profile.avatar.name != "./profiles/static/avatars/user_avt.jpg"):
                 profile.avatar.storage.delete(profile.avatar.name)
             serializer.save()
 
     def delete_avatar(self, pk=None):
         profile = self.get_object()
-        if (profile.avatar.name != './profiles/static/avatars/default.avif'):
+        if (profile.avatar.name != './profiles/static/avatars/user_avt.jpg'):
             profile.avatar.storage.delete(profile.avatar.name)
-        profile.avatar.name = './profiles/static/avatars/default.avif'
+        profile.avatar.name = './profiles/static/avatars/user_avt.jpg'
         profile.save()
         return Response(ProfileSerializer(profile).data)
 

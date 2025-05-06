@@ -13,7 +13,7 @@ def upload_to(instance, filename: str):
 
 class ProfileModel(Model):
     user = OneToOneField(User, on_delete=CASCADE)
-    avatar = ImageField(upload_to=upload_to, default="./profiles/static/avatars/default.avif")
+    avatar = ImageField(upload_to=upload_to, default="./profiles/static/avatars/user_avt.jpg")
 
     def get_game(self) -> int:
         from games.consumers import game_manager
@@ -64,7 +64,7 @@ class ProfileModel(Model):
 
 @receiver(pre_delete, sender=ProfileModel)
 def delete_profile_picture(sender, instance, **kwargs):
-    if instance.avatar.name != './profiles/static/avatars/default.avif':
+    if instance.avatar.name != './profiles/static/avatars/user_avt.jpg':
         instance.avatar.storage.delete(instance.avatar.name)
 
 

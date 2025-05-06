@@ -7,7 +7,7 @@ class ProfileTest(TestCase):
     def setUp(self):
         self.user: User = User.objects.create_user('Pong', password='password')
         self.user.save()
-        self.expected_response = {'avatar': '/static/avatars/default.avif', 'user_id': 1, 'username': 'Pong'}
+        self.expected_response = {'avatar': '/static/avatars/user_avt.jpg', 'user_id': 1, 'username': 'Pong'}
 
         self.url = "/api/profiles/user/"
 

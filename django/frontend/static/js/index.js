@@ -22,8 +22,12 @@ let lang = client.lang;
 let lastView;
 let lastPageUrlBeforeLogin;
 
+
 const pathToRegex = path => new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
 
+//ex path: /profile/:username
+// uri: /profiles/john
+// return: { username: "john" }
 const getParams = match => {
 
     const values = match.result.slice(1);
@@ -72,7 +76,8 @@ async function renderView(view)
 const router = async(uri) => {
 
     const routes = [
-        { path: "/", view: DashboardView},
+        // { path: "/", view: DashboardView},
+        { path: "/", view: HomeView},
         { path: "/profiles/:username", view: ProfilePageView },
         { path: "/login", view: AuthenticationView },
         { path: "/register", view: AuthenticationView },

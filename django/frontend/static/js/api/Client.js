@@ -6,7 +6,6 @@ import Notice from "./Notice.js";
 import LanguageManager from './LanguageManager.js';
 
 
-
 function getCookie(name)
 {
 	let cookie = {};
@@ -29,6 +28,7 @@ class Client
 		this.notice = new Notice(this);
 		this.lang = new LanguageManager();
 	}
+
 	async isAuthenticated()
 	{
 		if (this._logged == undefined)

@@ -17,7 +17,7 @@ export default class extends AbstractView {
 						<div class="card-body">
 							<h5 class="card-title">${lang.get('homeOnline')}</h5>
 							<p class="card-text">${lang.get('matchmakingPresentation')}</p>
-							<a href="/matchmaking" class="btn btn-primary">${lang.get('homeOnline')}</a>
+							<a href="/matchmaking" class="btn btn-primary" data-link>${lang.get('homeOnline')}</a>
 						</div>
 						</div>
 					</div>
@@ -27,7 +27,7 @@ export default class extends AbstractView {
 						<div class="card-body">
 							<h5 class="card-title">${lang.get('homePongOffline')}</h5>
 							<p class="card-text">${lang.get('offlinePongPresentation')}</p>
-							<a href="/games/pong/offline" class="btn btn-primary">${lang.get('homePongOffline')}</a>
+							<a href="/games/pong/offline" class="btn btn-primary" data-link>${lang.get('homePongOffline')}</a>
 						</div>
 						</div>
 					</div>
