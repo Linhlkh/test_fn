@@ -1,5 +1,5 @@
+import { client } from "../index.js";
 import AbstractView from "./abstracts/AbstractView.js";
-import { client, lang } from "../index.js";
 
 export default class extends AbstractView {
 	constructor(params) {
@@ -148,7 +148,6 @@ export default class extends AbstractView {
 		<div>
 		  <div class='mb-3' id='profileInfo'>
 			<h1>${this.username}<span id='statusIndicator' style='height:0.75em; width:0.75em' class='ms-2 rounded-circle border d-inline-block'></span></h1>
-			<a href=${this.profile.avatar} target='_blank'>
 			<img class='img-thumbnail' src=${this.profile.avatar} style='width:auto; max-height:20vh; min-height:10vh'>
 			</a>
 			</div>
